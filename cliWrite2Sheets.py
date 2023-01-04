@@ -31,10 +31,12 @@ event = sys.argv[1]
 badgeid = sys.argv[2]
 inout = sys.argv[3]
 
-name = badge_names.get(badgeid)
+# Retrieve name from badge_names dictionary, using badgeid as the default value if the key does not exist
+name = badge_names.get(badgeid, badgeid)
 
-if name is None:
-    name = badgeid
+#name = badge_names.get(badgeid)
+#if name is None:
+    #name = badgeid
 
 now = datetime.datetime.now()
 date_str = now.strftime('%Y-%m-%d')
@@ -83,7 +85,7 @@ def main():
                     body={'values': [['Name', 'CheckinTime', 'CheckoutTime', 'Duration']]}
             ).execute()
             ## Uncomment webbrowser.open for local testing
-            webbrowser.open('https://docs.google.com/spreadsheets/d/' + file_id, new=2)
+            webbrowser.open(f'https://docs.google.com/spreadsheets/d/' + file_id, new=2)
         else:
             # Get the ID of the existing sheet
             file_id = [item["id"] for item in items if item["name"] == SHEET_NAME][0]
